@@ -2,28 +2,30 @@
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Analisador de Dispositivo e Internet</title>
 <style>
-:root{--bg:#f4f6fb;--cd:#fff;--tx:#0f172a;--mu:#64748b;--pr:#2563eb;--bd:#e2e8f0;--ok:#16a34a;--wa:#d97706;--er:#dc2626}
-@media(prefers-color-scheme:dark){:root{--bg:#0b1220;--cd:#131c2e;--tx:#e5edf9;--mu:#94a3b8;--bd:#24324a}}
-*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx)}
-header{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;padding:24px 0 62px}h1{margin:0;font-size:1.5rem}header p{margin:4px 0 0;opacity:.9}
-.w{max-width:980px;margin:0 auto;padding:0 16px}nav{display:flex;gap:8px;margin-top:16px}
-nav button{flex:1;background:rgba(255,255,255,.18);color:#fff;border:0;padding:11px;border-radius:12px;font-size:1rem;cursor:pointer}nav button.on{background:#fff;color:#2563eb;font-weight:700}
-main{margin-top:-38px;padding-bottom:40px}.card{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
-h2{margin:0 0 10px;font-size:1.1rem}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-label{font-size:.85rem;color:var(--mu);display:block}input{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:1rem}
-.b{background:var(--pr);color:#fff;border:0;padding:12px 18px;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:12px}.b:disabled{opacity:.5}.b.s{background:var(--bd);color:var(--tx)}
-.k{text-align:center;padding:14px;border-radius:14px;background:var(--bg)}.k b{display:block;font-size:1.7rem}.k span{color:var(--mu);font-size:.85rem}
+:root{--bg:#f3f7fd;--cd:#fff;--tx:#0b1b3a;--mu:#5b6b8a;--pr:#1d4ed8;--ac:#0ea5e9;--bd:#dbe6f6;--k:#eef4ff}
+@media(prefers-color-scheme:dark){:root{--bg:#07122a;--cd:#0e1d3d;--tx:#e8f0ff;--mu:#93a6c9;--pr:#3b82f6;--bd:#1d315c;--k:#12254b}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx)}
+header{background:linear-gradient(160deg,#0a2a6b,#1d4ed8 75%,#0ea5e9);color:#fff;padding:26px 0 64px}h1{margin:0;font-size:1.45rem;font-weight:700;letter-spacing:-.01em}header p{margin:4px 0 0;opacity:.85;font-size:.95rem}
+.w{max-width:980px;margin:0 auto;padding:0 16px}nav{display:flex;gap:6px;margin-top:18px;background:rgba(255,255,255,.14);padding:5px;border-radius:14px}
+nav button{flex:1;background:transparent;color:#fff;border:0;padding:10px 4px;border-radius:10px;font-size:.95rem;cursor:pointer}nav button.on{background:#fff;color:#1d4ed8;font-weight:700}
+main{margin-top:-40px;padding-bottom:30px}.card{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(15,60,160,.07)}
+h2{margin:0 0 10px;font-size:1.05rem;font-weight:700}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+label{font-size:.82rem;color:var(--mu);display:block;margin-bottom:3px}input,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:1rem}input:focus,select:focus{outline:2px solid var(--ac);border-color:transparent}
+.b{background:var(--pr);color:#fff;border:0;padding:12px 20px;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:12px}.b:hover{filter:brightness(1.1)}.b:disabled{opacity:.5}.b.s{background:var(--k);color:var(--pr);border:1px solid var(--bd)}
+.k{text-align:center;padding:14px;border-radius:14px;background:var(--k)}.k b{display:block;font-size:1.6rem;color:var(--pr)}.k span{color:var(--mu);font-size:.82rem}
 table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}th{color:var(--mu);font-weight:600}
-.t{padding:2px 9px;border-radius:99px;font-size:.8rem;font-weight:700;white-space:nowrap}.ok{background:#dcfce7;color:#166534}.wa{background:#fef3c7;color:#92400e}.er{background:#fee2e2;color:#991b1b}.in{background:var(--bd);color:var(--mu)}
-.bar{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#7c3aed);transition:width .3s}
-.mu{color:var(--mu);font-size:.85rem}ul{padding-left:20px;margin:6px 0}[hidden]{display:none!important}.x{overflow-x:auto}
+.t{padding:2px 9px;border-radius:99px;font-size:.8rem;font-weight:700;white-space:nowrap}.ok{background:#dcfce7;color:#166534}.wa{background:#fef3c7;color:#92400e}.er{background:#fee2e2;color:#991b1b}.in{background:var(--k);color:var(--mu)}
+.chip{display:inline-block;margin:3px 3px 3px 0;padding:4px 11px;border-radius:99px;font-size:.85rem}.chip.bl{background:#dbeafe;color:#1e40af}.chip.wa,.chip.er{font-weight:600}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1d4ed8,#0ea5e9);transition:width .3s}
+.mu{color:var(--mu);font-size:.85rem}ul,ol{padding-left:20px;margin:6px 0}[hidden]{display:none!important}.x{overflow-x:auto}
+.app-footer{background:#eaf2ff;color:#0b1b3a;border-top:1px solid #cfe0ff;padding:16px;margin-top:6px;font-size:.92rem}.app-footer p,.app-footer address{margin:3px 0}
 </style></head><body>
 <header><div class="w"><h1>📊 Analisador de Dispositivo e Internet</h1><p>Teste seu aparelho e sua conexão, compare com o fabricante e receba dicas.</p>
 <nav><button id="t-dev" class="on" onclick="go('dev')">📱 Dispositivo</button><button id="t-net" onclick="go('net')">📡 Internet</button></nav></div></header>
 <main class="w">
 <section id="p-dev">
 <div class="card"><h2>Informe o aparelho (opcional)</h2><p class="mu">Com marca e modelo, comparo o teste com a especificação do fabricante. Sem isso, o teste roda do mesmo jeito.</p>
-<div class="g"><div><label>Marca</label><input id="marca" placeholder="Ex.: Samsung"></div><div><label>Produto</label><input id="prod" placeholder="Ex.: Galaxy A14 5G"></div><div><label>Modelo</label><input id="modelo" placeholder="Ex.: SM-A146M"></div></div>
+<div class="g"><div><label>Marca</label><input id="marca" placeholder="Ex.: Samsung"></div><div><label>Produto</label><input id="prod" placeholder="Ex.: Galaxy A14 5G"></div><div><label>Modelo</label><input id="modelo" placeholder="Ex.: SM-A146M"></div><div><label>Tipo de aparelho</label><select id="tipo"><option value="">Detectar automaticamente</option><option value="m">Celular</option><option value="t">Tablet</option><option value="c">Computador / Notebook</option></select></div></div>
 <label style="margin-top:10px"><input type="checkbox" id="usaia" checked style="width:auto"> Buscar especificações com IA (Puter, precisa de internet)</label>
 <button class="b" id="bd" onclick="testarDisp()">▶ Testar este aparelho</button><div class="bar"><i id="pd"></i></div><p class="mu" id="sd"></p></div>
 <div id="rd" hidden></div></section>
@@ -33,6 +35,18 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{padding:8px 6px
 <button class="b" id="bn" onclick="testarNet()">▶ Iniciar teste</button><div class="bar"><i id="pn"></i></div><p class="mu" id="sn"></p></div>
 <div id="rn" hidden></div></section>
 </main>
+<footer class="app-footer"> <!-- Início do Rodapé da página -->
+                  <p style="text-align: center;">
+                  <a href="https://antoniopsj1-alt.github.io/Portfolio-AntonioJunior/" target="_blank" style="text-decoration: none; color: inherit;">
+                   &copy; 2026 Antônio Pereira de Souza Junior.
+                  </a>
+                  </p>
+			<p style="text-align: center;">Todos os direitos reservados.</p>
+      <address style="text-align: center; color: blue; font-weight: bold;">
+			 Contato: <a href="mailto:antoniopsj1@gmail.com">antoniopsj1@gmail.com</a>
+			</address> 
+		</footer> <!-- Fim do Rodapé -->
+
 <script>
 const $=i=>document.getElementById(i),esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),sleep=m=>new Promise(r=>setTimeout(r,m));
 const NIV=['Fraco','Básico','Bom','Ótimo'],niv=s=>s<25?0:s<50?1:s<75?2:3,md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
@@ -44,11 +58,13 @@ const loadPuter=()=>new Promise((ok,no)=>{if(window.puter)return ok();const s=do
 async function ia(p){await loadPuter();const r=await puter.ai.chat(p);return typeof r==='string'?r:(r?.message?.content?.[0]?.text||r?.message?.content||r?.text||JSON.stringify(r))}
 /* ---- base local de especificações (funciona offline) ---- */
 const DB=[{re:/a14.*5g|sm-a146/i,n:'Samsung Galaxy A14 5G (SM-A146M)',proc:'Exynos 1330 (octa-core)',gpu:'Mali-G68 MP2',ram:4,rom:128,tela:'6,6" 2400×1080, 90 Hz',nota:30}];
-const APPS=[[/atari|master ?system|\bnes\b|nintendinho/i,'Emuladores 8 bits',0],[/mega ?drive|genesis|snes|super nintendo/i,'Emuladores Mega Drive/Super Nintendo',1],[/ps1|playstation ?1|psx/i,'PlayStation 1',2],[/n64|nintendo 64|mario 64/i,'Nintendo 64',3],[/ps2|playstation ?2/i,'PlayStation 2',3],[/ps3|playstation ?3/i,'PlayStation 3',4],
-[/whatsapp|telegram|gmail/i,'Mensageiros e e-mail',0],[/instagram|tiktok|kwai|facebook|youtube/i,'Redes sociais e vídeo',1],[/chatgpt|gemini|copilot|claude/i,'Assistentes de IA (online)',1],[/zoom|meet|teams|canva|capcut|word|excel/i,'Reuniões, escritório e edição simples',2],[/free ?fire|minecraft|roblox/i,'Free Fire / Minecraft / Roblox',2],[/genshin|fortnite|pubg|call of duty|\bcod\b/i,'Jogos 3D pesados',3],[/power ?bi|autocad|photoshop|premiere|blender|llama|stable diffusion/i,'Aplicativos profissionais / IA local',3]];
-const APPREC=[['WhatsApp Lite/Facebook Lite','Instagram Lite','Google Maps Go','Chrome','Emuladores 8 bits'],['WhatsApp','Instagram','YouTube','Google Drive','Word/Excel','Emuladores até SNES/Mega Drive'],['TikTok/Kwai','Zoom/Meet','Canva/CapCut','Free Fire','PS1 (DuckStation)'],['Genshin/Fortnite','Emuladores N64/PS2/PSP','Power BI/AutoCAD','Editores de vídeo','IA local']];
+const CAT={m:[['WhatsApp / Telegram / Gmail',0,'whatsapp|telegram|gmail'],['Chrome / Google Maps / Spotify',0,'chrome|maps|spotify'],['Emuladores 8 bits (NES, Atari, Master System)',0,'atari|master|\\bnes\\b|nintendinho'],['YouTube / Netflix',1,'youtube|netflix|prime'],['Instagram / TikTok / Kwai',1,'instagram|tiktok|kwai|facebook'],['Word / Excel / Meet / Zoom',1,'word|excel|meet|zoom|teams'],['ChatGPT / Gemini (online)',1,'chatgpt|gemini|copilot|claude'],['Emuladores Mega Drive / Super Nintendo',1,'mega|genesis|snes|super nintendo'],['Canva / CapCut',2,'canva|capcut'],['Free Fire / Minecraft / Roblox',2,'free ?fire|minecraft|roblox'],['Emulador PlayStation 1',2,'ps1|psx|playstation 1'],['Power BI / AutoCAD (mobile)',2,'power ?bi|autocad'],['Fortnite / PUBG / Call of Duty',3,'fortnite|pubg|call of duty|\\bcod\\b'],['Genshin Impact',3,'genshin'],['Emulador Nintendo 64 / Mario 64',3,'n64|nintendo 64|mario'],['Emulador PS2 / PSP',3,'ps2|psp|playstation 2'],['IA rodando no aparelho',3,'llama|stable diffusion|ia local']],
+c:[['Chrome / Edge / WhatsApp Web',0,'chrome|edge|whatsapp|telegram'],['VLC / Spotify',0,'vlc|spotify'],['Emuladores 8 e 16 bits',0,'atari|master|\\bnes\\b|snes|mega|genesis|super nintendo'],['Word / Excel / PowerPoint',1,'word|excel|powerpoint|office'],['Zoom / Teams / Meet',1,'zoom|teams|meet'],['VS Code / Python / Node',1,'vs ?code|python|node'],['Emulador PlayStation 1',1,'ps1|psx|playstation 1'],['Photoshop / Illustrator / Lightroom',2,'photoshop|illustrator|lightroom'],['AutoCAD / SketchUp',2,'autocad|sketchup'],['Power BI Desktop',2,'power ?bi'],['Emulador Nintendo 64',2,'n64|nintendo 64|mario 64'],['Jogos leves (Minecraft, LoL, Roblox)',2,'minecraft|league|\\blol\\b|roblox|free ?fire'],['Android Studio / Docker / máquinas virtuais',2,'android studio|docker|virtual'],['Revit / SolidWorks / Civil 3D',3,'revit|solidworks|civil 3d|archicad'],['Premiere / After Effects / DaVinci',3,'premiere|after effects|davinci'],['Blender / 3ds Max / Maya',3,'blender|3ds|maya'],['Jogos AAA (GTA V, Cyberpunk, Fortnite)',3,'gta|cyberpunk|fortnite|valorant|call of duty|elden|genshin'],['Emulador PS2 / PS3 / Switch',3,'ps2|ps3|switch|yuzu|rpcs3'],['IA local (Ollama, Stable Diffusion)',3,'ollama|llama|stable diffusion|ia local']]};
 let M=null,S=null,Q='';
 /* ================= PÁGINA 1: DISPOSITIVO ================= */
+const TIPOS={m:'Celular',t:'Tablet',c:'Computador / Notebook'};
+async function specIA(q){const r=await ia(`Você é especialista em hardware. Dê as especificações oficiais do fabricante de: ${q}. Responda SOMENTE com um JSON válido, sem texto extra e sem crases: {"n":"nome completo","proc":"processador","gpu":"placa de vídeo","ram":numero_em_GB,"rom":numero_em_GB,"tela":"tela","nota":numero_0_a_100}. Se houver várias configurações, use a mais comum. "nota" é OBRIGATÓRIA: estimativa do desempenho geral de 0 a 100 (celular de entrada ≈ 30, notebook básico ≈ 45, PC de jogos ≈ 90).`);
+ const j=String(r).match(/\{[\s\S]*\}/);if(!j)throw new Error('a IA não devolveu os dados');const o=JSON.parse(j[0]);['ram','rom','nota'].forEach(k=>o[k]=parseFloat(o[k])||null);return o}
 async function testarDisp(){
  const b=$('bd'),st=$('sd'),pr=$('pd');b.disabled=true;pr.style.width='5%';st.textContent='Medindo processador...';await sleep(60);
  let n=0,x=0;const t0=performance.now();while(performance.now()-t0<700){for(let i=0;i<2000;i++)x+=Math.sqrt(i)*Math.sin(i);n+=2000}
@@ -58,36 +74,46 @@ async function testarDisp(){
  const fps=fr/((performance.now()-t1)/1000);pr.style.width='60%';
  let gpu='não informado';try{const gl=document.createElement('canvas').getContext('webgl'),e=gl.getExtension('WEBGL_debug_renderer_info');gpu=gl.getParameter(e?e.UNMASKED_RENDERER_WEBGL:gl.RENDERER)}catch(_){}
  const ua=navigator.userAgent,d=devicePixelRatio||1,nuc=navigator.hardwareConcurrency||0,ram=navigator.deviceMemory||0;
- const so=/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'Desconhecido';
- const score=Math.round(.4*cpu+.2*Math.min(100,fps/60*100)+.2*(ram?Math.min(100,ram/8*100):40)+.2*Math.min(100,nuc/8*100));
- M={so,nuc,ram,gpu,fps:Math.round(fps),cpu:Math.round(cpu),score,lv:niv(score),tela:Math.round(screen.width*d)+'×'+Math.round(screen.height*d)};
+ const so=/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'macOS':/CrOS/.test(ua)?'ChromeOS':/Linux/.test(ua)?'Linux':'Desconhecido';
+ const mob=/Android|iPhone|iPad|iPod/.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/.test(ua));
+ const tipo=$('tipo').value||(!mob?'c':(/iPad|Tablet|Macintosh/.test(ua)||(/Android/.test(ua)&&!/Mobile/.test(ua)))?'t':'m');
+ const gT=/swiftshader|llvmpipe|software|basic render/i.test(gpu)?0:/rtx|gtx|geforce|quadro|radeon rx|radeon pro|apple m\d|arc a\d|adreno.*[78]\d\d/i.test(gpu)?3:1;
+ let score=Math.round(.4*cpu+.2*Math.min(100,fps/60*100)+.2*(ram?Math.min(100,ram/8*100):40)+.2*Math.min(100,nuc/8*100));score=Math.min(score,gT===0?20:gT===1?65:100);
+ M={so,tipo,nuc,ram,gpu,gT,fps:Math.round(fps),cpu:Math.round(cpu),score,lv:niv(score),tela:Math.round(screen.width*d)+'×'+Math.round(screen.height*d)};
  try{if(!$('modelo').value){const h=await navigator.userAgentData?.getHighEntropyValues(['model']);if(h?.model&&h.model.length>1)$('modelo').value=h.model}}catch(_){}
  Q=['marca','prod','modelo'].map(i=>$(i).value.trim()).filter(Boolean).join(' ');S=null;let av='';
- if(Q){S=DB.find(d=>d.re.test(Q));if(!S&&$('usaia').checked){st.textContent='Buscando especificações com IA...';pr.style.width='80%';
-  try{const r=await ia(`Especificações técnicas oficiais do fabricante de: ${Q}. Responda SOMENTE um JSON: {"n":"nome completo","proc":"","gpu":"","ram":0,"rom":0,"tela":"","nota":0}. ram e rom em GB; nota = desempenho geral de 0 a 100 comparado a aparelhos atuais. Use null se não souber.`);S=JSON.parse(r.match(/\{[\s\S]*\}/)[0]);S.ia=1}catch(e){S=null;av='Não consegui buscar as especificações (sem internet ou IA indisponível). O relatório usa só o teste.'}}}
+ if(Q){S=DB.find(d=>d.re.test(Q));if(!S&&$('usaia').checked){st.textContent='Buscando especificações com IA...';pr.style.width='80%';let er='';
+  for(let i=0;i<2&&!S;i++){try{S=await specIA(Q);S.ia=1}catch(e){er=e.message}}
+  if(!S)av='Não consegui obter as especificações ('+er+'). Tente de novo ou confira o modelo digitado.';}
+  if(S&&!S.nota&&S.ram){S.nota=Math.min(95,Math.round(15+S.ram*7));S.est=1}}
  pr.style.width='100%';st.textContent='Pronto! ✅';b.disabled=false;relDisp(av);
 }
 function relDisp(av){
- const m=M,s=S||{},f=(v,u='')=>v?esc(v)+u:'—',lv=m.lv,ok=(c,t)=>tag(c,t);
- const rows=[['Memória RAM',f(s.ram,' GB'),m.ram?'≈ '+m.ram+' GB (o navegador limita a 8)':'não detectável',s.ram&&m.ram?(m.ram>=s.ram*.7?ok('ok','confere'):ok('wa','menor')):ok('in','info')],
- ['Armazenamento (ROM)',f(s.rom,' GB'),'o navegador não informa',ok('in','info')],['Processador',f(s.proc),m.nuc?m.nuc+' núcleos':'não detectável',ok('in','info')],['GPU',f(s.gpu),esc(m.gpu),ok('in','info')],['Tela',f(s.tela),m.tela+' px',ok('in','info')],
- ['Desempenho',s.nota?s.nota+'/100':'—',m.score+'/100 ('+NIV[lv]+')',s.nota?(m.score>=s.nota*.8?ok('ok','atende'):ok('er','abaixo do esperado')):ok('in','sem comparação')]];
- const concl=['Desempenho limitado: bom para mensagens, navegação e vídeos leves.','Desempenho básico: atende redes sociais, vídeo, escritório e emuladores até 16 bits. Jogos 3D e Nintendo 64 podem ter lag.','Bom desempenho: roda a maioria dos apps e jogos, e emuladores até PS1/N64 com ajustes.','Ótimo desempenho: roda praticamente tudo, inclusive jogos 3D e apps pesados.'][lv]+(s.nota?(m.score>=s.nota*.8?' O teste é compatível com a especificação do fabricante.':' O teste ficou abaixo do esperado pelo fabricante: feche apps, desligue a economia de energia, deixe o aparelho esfriar e repita.'):'');
- const dicas=m.so==='Android'||m.so==='iOS'?['Feche apps em segundo plano antes de jogos e emuladores','Deixe 10–15% do armazenamento livre e limpe o cache','Desative a economia de energia e evite calor (tire a capa em jogos)','Mantenha o sistema e o navegador (Chrome) atualizados','Android: em Opções do desenvolvedor, reduza as escalas de animação para 0,5×']:['Feche abas e programas que não usa','Desative apps que iniciam com o sistema','Use SSD e mantenha drivers atualizados','Se a RAM for pouca, aumentá-la é a melhoria mais eficaz'];
- $('rd').hidden=false;$('rd').innerHTML=`<div class="card" id="rtd"><h2>📋 Relatório do aparelho${S?.n?' — '+esc(S.n):''}</h2>${av?`<p class="mu">⚠️ ${av}</p>`:''}${S?.ia?'<p class="mu">Especificações geradas por IA: confirme no site do fabricante.</p>':''}
+ const m=M,s=S||{},f=(v,u='')=>v?esc(v)+u:'—',lv=m.lv,ok=(c,t)=>tag(c,t),pc=m.tipo==='c';
+ const rows=[['Memória RAM',f(s.ram,' GB'),m.ram?'≈ '+m.ram+' GB (o navegador limita a 8)':'não detectável',s.ram&&m.ram?(m.ram>=s.ram*.7||m.ram>=8?ok('ok','confere'):ok('wa','menor')):ok('in','info')],
+ ['Armazenamento (ROM)',f(s.rom,' GB'),'o navegador não informa',ok('in','info')],['Processador',f(s.proc),m.nuc?m.nuc+' núcleos':'não detectável',ok('in','info')],
+ ['GPU',f(s.gpu),esc(m.gpu),m.gT===3?ok('ok','potente'):m.gT===0?ok('er','sem aceleração'):ok('wa','integrada/básica')],['Tela',f(s.tela),m.tela+' px',ok('in','info')],
+ ['Desempenho',s.nota?s.nota+'/100'+(s.est?' (estimada)':''):'—',m.score+'/100 ('+NIV[lv]+')',s.nota?(m.score>=s.nota*.8?ok('ok','atende'):ok('er','abaixo do esperado')):ok('in','sem comparação')]];
+ const C=pc?['Desempenho limitado: bom para navegar, textos e vídeos leves.','Desempenho básico: atende navegação, escritório, videochamadas e programação leve.','Bom desempenho: roda escritório, edição de imagem, CAD/3D leve e emuladores até N64.','Ótimo desempenho: roda quase tudo, inclusive edição de vídeo, 3D e jogos pesados.']:['Desempenho limitado: bom para mensagens, navegação e vídeos leves.','Desempenho básico: atende redes sociais, vídeo, escritório e emuladores até 16 bits. Jogos 3D e Nintendo 64 podem ter lag.','Bom desempenho: roda a maioria dos apps e jogos, e emuladores até PS1 com ajustes.','Ótimo desempenho: roda praticamente tudo, inclusive jogos 3D e apps pesados.'];
+ const concl=C[lv]+(m.gT===1?' A placa de vídeo é integrada/básica, o que limita jogos 3D, renderização e CAD/BIM pesado.':'')+(s.nota?(m.score>=s.nota*.8?' O teste é compatível com a especificação do fabricante.':' O teste ficou abaixo do esperado pelo fabricante: feche programas, ligue o modo de desempenho, deixe esfriar e repita.'):'');
+ const dicas=pc?['Feche abas e programas que não usa','Desative apps que iniciam com o sistema (Gerenciador de Tarefas → Inicializar)','Use SSD e mantenha o sistema e os drivers atualizados','Em notebook, ligue na tomada e use o plano de energia "Alto desempenho"','Limpe a poeira e as ventoinhas: calor reduz a velocidade','Se a RAM for pouca, subir para 16 GB é a melhoria mais eficaz']:['Feche apps em segundo plano antes de jogos e emuladores','Deixe 10–15% do armazenamento livre e limpe o cache','Desative a economia de energia e evite calor (tire a capa em jogos)','Mantenha o sistema e o Chrome atualizados','Android: em Opções do desenvolvedor, reduza as escalas de animação para 0,5×','Prefira versões "Lite" dos apps pesados'];
+ if(m.gT===1)dicas.push('Placa de vídeo integrada: use gráficos baixos em jogos e vistas simples em programas 3D');
+ const cat=CAT[pc?'c':'m'],pode=cat.filter(a=>a[1]<=lv),nao=cat.filter(a=>a[1]>lv),ch=(a,k)=>a.length?a.map(x=>`<span class="chip ${k||(x[1]<lv?'bl':'wa')}">${x[0]}${!k&&x[1]===lv?' (no limite)':''}</span>`).join(''):'<span class="mu">Nenhum: seu aparelho atende a todos da lista.</span>';
+ $('rd').hidden=false;$('rd').innerHTML=`<div class="card" id="rtd"><h2>📋 Relatório — ${TIPOS[m.tipo]}${S?.n?' · '+esc(S.n):''}</h2>${av?`<p class="mu">⚠️ ${esc(av)}</p>`:''}${S?.ia?'<p class="mu">Especificações geradas por IA: confirme no site do fabricante.</p>':''}
  <div class="g"><div class="k"><b>${m.score}</b><span>Pontuação (0–100)</span></div><div class="k"><b>${NIV[lv]}</b><span>Classificação</span></div><div class="k"><b>${m.fps}</b><span>FPS no teste gráfico</span></div><div class="k"><b>${esc(m.so)}</b><span>Sistema</span></div></div>
  <h2 style="margin-top:16px">Fabricante × teste</h2>${tbl(['Item','Fabricante','Medido','Situação'],rows)}
- <h2 style="margin-top:16px">✅ Conclusão</h2><p>${concl}</p><h2>💡 Dicas para melhorar</h2>${lst(dicas)}<h2>📲 Apps indicados para este nível</h2>${lst(APPREC[lv])}<p class="mu">A pontuação é relativa e aproximada (teste rápido no navegador).</p></div>
+ <h2 style="margin-top:16px">✅ Conclusão</h2><p>${concl}</p><h2>💡 Dicas para melhorar</h2>${lst(dicas)}
+ <h2>✔️ Apps mais usados que você pode instalar</h2><div>${ch(pode)}</div><h2 style="margin-top:14px">⛔ Populares que não são recomendados (abaixo do mínimo)</h2><div>${ch(nao,'er')}</div><p class="mu">A pontuação é relativa e aproximada (teste rápido no navegador).</p></div>
  <button class="b s" onclick="cp('rtd')">📋 Copiar relatório</button>
- <div class="card"><h2>🔍 Este aplicativo roda no meu aparelho?</h2><input id="app" placeholder="Ex.: Super Mario 64, Free Fire, AutoCAD..."><button class="b" onclick="chkApp()">Verificar</button> <button class="b s" onclick="iaApp()">🤖 Perguntar à IA</button><div id="ra" style="margin-top:12px"></div></div>`;
+ <div class="card"><h2>🔍 Este aplicativo roda no meu aparelho?</h2><input id="app" placeholder="Ex.: Revit, Free Fire, AutoCAD..."><button class="b" onclick="chkApp()">Verificar</button> <button class="b s" onclick="iaApp()">🤖 Perguntar à IA</button><div id="ra" style="margin-top:12px"></div></div>`;
  $('rd').scrollIntoView({behavior:'smooth'});
 }
-function chkApp(){const q=$('app').value.trim(),r=$('ra');if(!q)return;const a=APPS.find(x=>x[0].test(q));
+function chkApp(){const q=$('app').value.trim(),r=$('ra');if(!q)return;const a=CAT[M.tipo==='c'?'c':'m'].find(x=>new RegExp(x[2],'i').test(q));
  if(!a){r.innerHTML='Não tenho esse app na minha lista. Toque em <b>Perguntar à IA</b> para uma estimativa.';return}
- const d=M.lv-a[2],v=d>=1?['ok','🟢 Roda muito bem']:d===0?['wa','🟡 Roda, com ajustes (qualidade menor)']:d===-1?['wa','🟠 Pode travar; use o modo mais leve']:['er','🔴 Não recomendado neste aparelho'];
- r.innerHTML=`<b>${esc(a[1])}</b>: ${tag(v[0],v[1])}<p class="mu">Seu nível: ${NIV[M.lv]} · nível indicado: ${NIV[Math.min(3,a[2])]}${a[2]>3?' ou superior (hardware avançado)':''}.</p>`}
+ const d=M.lv-a[1],v=d>=1?['ok','🟢 Roda muito bem']:d===0?['wa','🟡 Roda, com ajustes (qualidade menor)']:d===-1?['wa','🟠 Pode travar; use o modo mais leve']:['er','🔴 Não recomendado neste aparelho'];
+ r.innerHTML=`<b>${esc(a[0])}</b>: ${tag(v[0],v[1])}<p class="mu">Seu nível: ${NIV[M.lv]} · nível indicado: ${NIV[a[1]]}.</p>`}
 async function iaApp(){const q=$('app').value.trim(),r=$('ra');if(!q)return;r.textContent='🤖 Consultando a IA...';
- try{r.innerHTML=md(await ia(`Aparelho: ${Q||'modelo não informado'}; ${M.so}; ${M.nuc} núcleos; RAM ${M.ram||'?'} GB; GPU ${M.gpu}; nota do teste ${M.score}/100 (${NIV[M.lv]}). O aplicativo/jogo "${q}" roda nele? Qual o desempenho esperado (fluidez/FPS), configurações recomendadas e alternativas mais leves? Responda em português, em até 8 linhas.`))}catch(e){r.textContent='⚠️ '+e.message}}
+ try{r.innerHTML=md(await ia(`Aparelho (${TIPOS[M.tipo]}): ${Q||'modelo não informado'}; ${M.so}; ${M.nuc} núcleos; RAM ${M.ram||'?'} GB; GPU ${M.gpu}; nota do teste ${M.score}/100 (${NIV[M.lv]}). O aplicativo/jogo "${q}" roda nele? Qual o desempenho esperado (fluidez/FPS), configurações recomendadas e alternativas mais leves? Responda em português, em até 8 linhas.`))}catch(e){r.textContent='⚠️ '+e.message}}
 /* ================= PÁGINA 2: INTERNET ================= */
 const CF='https://speed.cloudflare.com/';
 async function testarNet(){
