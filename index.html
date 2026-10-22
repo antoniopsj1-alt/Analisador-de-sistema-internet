@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analisador de Dispositivo e Internet</title>
+<style>
+:root{--bg:#f4f6fb;--cd:#fff;--tx:#0f172a;--mu:#64748b;--pr:#2563eb;--bd:#e2e8f0;--ok:#16a34a;--wa:#d97706;--er:#dc2626}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1220;--cd:#131c2e;--tx:#e5edf9;--mu:#94a3b8;--bd:#24324a}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx)}
+header{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;padding:24px 0 62px}h1{margin:0;font-size:1.5rem}header p{margin:4px 0 0;opacity:.9}
+.w{max-width:980px;margin:0 auto;padding:0 16px}nav{display:flex;gap:8px;margin-top:16px}
+nav button{flex:1;background:rgba(255,255,255,.18);color:#fff;border:0;padding:11px;border-radius:12px;font-size:1rem;cursor:pointer}nav button.on{background:#fff;color:#2563eb;font-weight:700}
+main{margin-top:-38px;padding-bottom:40px}.card{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+h2{margin:0 0 10px;font-size:1.1rem}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+label{font-size:.85rem;color:var(--mu);display:block}input{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:1rem}
+.b{background:var(--pr);color:#fff;border:0;padding:12px 18px;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:12px}.b:disabled{opacity:.5}.b.s{background:var(--bd);color:var(--tx)}
+.k{text-align:center;padding:14px;border-radius:14px;background:var(--bg)}.k b{display:block;font-size:1.7rem}.k span{color:var(--mu);font-size:.85rem}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}th{color:var(--mu);font-weight:600}
+.t{padding:2px 9px;border-radius:99px;font-size:.8rem;font-weight:700;white-space:nowrap}.ok{background:#dcfce7;color:#166534}.wa{background:#fef3c7;color:#92400e}.er{background:#fee2e2;color:#991b1b}.in{background:var(--bd);color:var(--mu)}
+.bar{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#7c3aed);transition:width .3s}
+.mu{color:var(--mu);font-size:.85rem}ul{padding-left:20px;margin:6px 0}[hidden]{display:none!important}.x{overflow-x:auto}
+</style></head><body>
+<header><div class="w"><h1>📊 Analisador de Dispositivo e Internet</h1><p>Teste seu aparelho e sua conexão, compare com o fabricante e receba dicas.</p>
+<nav><button id="t-dev" class="on" onclick="go('dev')">📱 Dispositivo</button><button id="t-net" onclick="go('net')">📡 Internet</button><button id="t-dl" onclick="go('dl')">⬇️ Offline</button></nav></div></header>
+<main class="w">
+<section id="p-dev">
+<div class="card"><h2>Informe o aparelho (opcional)</h2><p class="mu">Com marca e modelo, comparo o teste com a especificação do fabricante. Sem isso, o teste roda do mesmo jeito.</p>
+<div class="g"><div><label>Marca</label><input id="marca" placeholder="Ex.: Samsung"></div><div><label>Produto</label><input id="prod" placeholder="Ex.: Galaxy A14 5G"></div><div><label>Modelo</label><input id="modelo" placeholder="Ex.: SM-A146M"></div></div>
+<label style="margin-top:10px"><input type="checkbox" id="usaia" checked style="width:auto"> Buscar especificações com IA (Puter, precisa de internet)</label>
+<button class="b" id="bd" onclick="testarDisp()">▶ Testar este aparelho</button><div class="bar"><i id="pd"></i></div><p class="mu" id="sd"></p></div>
+<div id="rd" hidden></div></section>
+<section id="p-net" hidden>
+<div class="card"><h2>Teste de velocidade e estabilidade</h2><p class="mu">Informe o plano para comparar (opcional). Para medir o plano de verdade, teste por cabo ou perto do roteador.</p>
+<div class="g"><div><label>Provedor</label><input id="prov" placeholder="Ex.: Vivo Fibra"></div><div><label>Velocidade contratada (Mbps)</label><input id="ct" type="number" inputmode="decimal" placeholder="Ex.: 300"></div></div>
+<button class="b" id="bn" onclick="testarNet()">▶ Iniciar teste</button><div class="bar"><i id="pn"></i></div><p class="mu" id="sn"></p></div>
+<div id="rn" hidden></div></section>
+<section id="p-dl" hidden>
+<div class="card"><h2>⬇️ Baixar para usar offline</h2><p class="mu">O pacote traz <b>analisador_sistema.html</b> + <b>sw.js</b> + um LEIA-ME. O teste do aparelho funciona sem internet; o teste de internet e a IA precisam de conexão.</p>
+<button class="b" id="bz" onclick="baixarZip()">⬇️ Baixar pacote (.zip)</button> <button class="b s" onclick="baixarSep()">Baixar os 2 arquivos separados</button><p class="mu" id="sz"></p></div>
+<div class="card"><h2>📱 Instalar no celular ou tablet</h2>
+<p><b>Opção A — instalar como aplicativo (recomendada)</b></p><ol><li>Abra este site no <b>Chrome</b>, com internet.</li><li>Toque no menu <b>⋮</b> → <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li><li>Abra o ícone uma vez com internet para guardar tudo. Depois abre sem internet.</li></ol>
+<p><b>Opção B — usar o arquivo baixado</b></p><ol><li>Baixe o .zip, abra o app <b>Arquivos</b>, toque no .zip e escolha <b>Extrair</b>.</li><li>Abra a pasta e toque em <b>analisador_sistema.html</b>, escolhendo o <b>Chrome</b>.</li><li>O teste do aparelho funciona sem internet. O <code>sw.js</code> só age quando o site é aberto por endereço (https ou localhost), não por arquivo.</li></ol></div>
+<div class="card"><h2>💻 Instalar no computador</h2>
+<p><b>Jeito simples</b></p><ol><li>Extraia o .zip em uma pasta.</li><li>Dê duplo clique em <b>analisador_sistema.html</b> (abre no navegador).</li></ol>
+<p><b>Jeito completo (offline como aplicativo)</b></p><ol><li>Abra o terminal na pasta e rode <code>python -m http.server 8080</code> (ou use o Live Server do VS Code).</li><li>Acesse <code>http://localhost:8080/analisador_sistema.html</code> com internet, uma vez.</li><li>No Chrome/Edge, clique no ícone de instalar na barra de endereço. Depois funciona offline com o servidor ligado.</li><li>Para colocar outros apps na mesma porta, ponha os .html na pasta e siga os comentários do <code>sw.js</code>.</li></ol>
+<p class="mu">Dica: use Chrome ou Edge atualizados. Limpar os dados do navegador apaga o modo offline.</p></div></section>
+</main>
+<script>
+const $=i=>document.getElementById(i),esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),sleep=m=>new Promise(r=>setTimeout(r,m));
+const NIV=['Fraco','Básico','Bom','Ótimo'],niv=s=>s<25?0:s<50?1:s<75?2:3,md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+const tag=(c,t)=>`<span class="t ${c}">${t}</span>`,tbl=(h,r)=>`<div class="x"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(l=>`<tr>${l.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const lst=a=>'<ul>'+a.map(x=>`<li>${x}</li>`).join('')+'</ul>',cp=i=>navigator.clipboard.writeText($(i).innerText).then(()=>alert('Relatório copiado!'));
+function go(p){for(const x of['dev','net','dl']){$('p-'+x).hidden=x!==p;$('t-'+x).classList.toggle('on',x===p)}history.replaceState(0,'','#'+p)}
+/* ---- IA do Puter (carrega só quando usada; precisa de internet) ---- */
+const loadPuter=()=>new Promise((ok,no)=>{if(window.puter)return ok();const s=document.createElement('script');s.src='https://js.puter.com/v2/';s.onload=ok;s.onerror=()=>no(new Error('IA indisponível (sem internet?)'));document.head.appendChild(s)});
+async function ia(p){await loadPuter();const r=await puter.ai.chat(p);return typeof r==='string'?r:(r?.message?.content?.[0]?.text||r?.message?.content||r?.text||JSON.stringify(r))}
+/* ---- base local de especificações (funciona offline) ---- */
+const DB=[{re:/a14.*5g|sm-a146/i,n:'Samsung Galaxy A14 5G (SM-A146M)',proc:'Exynos 1330 (octa-core)',gpu:'Mali-G68 MP2',ram:4,rom:128,tela:'6,6" 2400×1080, 90 Hz',nota:30}];
+const APPS=[[/atari|master ?system|\bnes\b|nintendinho/i,'Emuladores 8 bits',0],[/mega ?drive|genesis|snes|super nintendo/i,'Emuladores Mega Drive/Super Nintendo',1],[/ps1|playstation ?1|psx/i,'PlayStation 1',2],[/n64|nintendo 64|mario 64/i,'Nintendo 64',3],[/ps2|playstation ?2/i,'PlayStation 2',3],[/ps3|playstation ?3/i,'PlayStation 3',4],
+[/whatsapp|telegram|gmail/i,'Mensageiros e e-mail',0],[/instagram|tiktok|kwai|facebook|youtube/i,'Redes sociais e vídeo',1],[/chatgpt|gemini|copilot|claude/i,'Assistentes de IA (online)',1],[/zoom|meet|teams|canva|capcut|word|excel/i,'Reuniões, escritório e edição simples',2],[/free ?fire|minecraft|roblox/i,'Free Fire / Minecraft / Roblox',2],[/genshin|fortnite|pubg|call of duty|\bcod\b/i,'Jogos 3D pesados',3],[/power ?bi|autocad|photoshop|premiere|blender|llama|stable diffusion/i,'Aplicativos profissionais / IA local',3]];
+const APPREC=[['WhatsApp Lite/Facebook Lite','Instagram Lite','Google Maps Go','Chrome','Emuladores 8 bits'],['WhatsApp','Instagram','YouTube','Google Drive','Word/Excel','Emuladores até SNES/Mega Drive'],['TikTok/Kwai','Zoom/Meet','Canva/CapCut','Free Fire','PS1 (DuckStation)'],['Genshin/Fortnite','Emuladores N64/PS2/PSP','Power BI/AutoCAD','Editores de vídeo','IA local']];
+let M=null,S=null,Q='';
+/* ================= PÁGINA 1: DISPOSITIVO ================= */
+async function testarDisp(){
+ const b=$('bd'),st=$('sd'),pr=$('pd');b.disabled=true;pr.style.width='5%';st.textContent='Medindo processador...';await sleep(60);
+ let n=0,x=0;const t0=performance.now();while(performance.now()-t0<700){for(let i=0;i<2000;i++)x+=Math.sqrt(i)*Math.sin(i);n+=2000}
+ const cpu=Math.min(100,n/(performance.now()-t0)/300);pr.style.width='35%';st.textContent='Medindo gráficos...';
+ const c=document.createElement('canvas');c.width=360;c.height=240;const g=c.getContext('2d');let fr=0;const t1=performance.now();
+ await new Promise(ok=>(function f(){for(let i=0;i<400;i++){g.fillStyle=`hsl(${i*7+fr*5},80%,55%)`;g.beginPath();g.arc(Math.random()*360,Math.random()*240,12,0,6.3);g.fill()}fr++;performance.now()-t1<1500?requestAnimationFrame(f):ok()})());
+ const fps=fr/((performance.now()-t1)/1000);pr.style.width='60%';
+ let gpu='não informado';try{const gl=document.createElement('canvas').getContext('webgl'),e=gl.getExtension('WEBGL_debug_renderer_info');gpu=gl.getParameter(e?e.UNMASKED_RENDERER_WEBGL:gl.RENDERER)}catch(_){}
+ const ua=navigator.userAgent,d=devicePixelRatio||1,nuc=navigator.hardwareConcurrency||0,ram=navigator.deviceMemory||0;
+ const so=/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'Desconhecido';
+ const score=Math.round(.4*cpu+.2*Math.min(100,fps/60*100)+.2*(ram?Math.min(100,ram/8*100):40)+.2*Math.min(100,nuc/8*100));
+ M={so,nuc,ram,gpu,fps:Math.round(fps),cpu:Math.round(cpu),score,lv:niv(score),tela:Math.round(screen.width*d)+'×'+Math.round(screen.height*d)};
+ try{if(!$('modelo').value){const h=await navigator.userAgentData?.getHighEntropyValues(['model']);if(h?.model&&h.model.length>1)$('modelo').value=h.model}}catch(_){}
+ Q=['marca','prod','modelo'].map(i=>$(i).value.trim()).filter(Boolean).join(' ');S=null;let av='';
+ if(Q){S=DB.find(d=>d.re.test(Q));if(!S&&$('usaia').checked){st.textContent='Buscando especificações com IA...';pr.style.width='80%';
+  try{const r=await ia(`Especificações técnicas oficiais do fabricante de: ${Q}. Responda SOMENTE um JSON: {"n":"nome completo","proc":"","gpu":"","ram":0,"rom":0,"tela":"","nota":0}. ram e rom em GB; nota = desempenho geral de 0 a 100 comparado a aparelhos atuais. Use null se não souber.`);S=JSON.parse(r.match(/\{[\s\S]*\}/)[0]);S.ia=1}catch(e){S=null;av='Não consegui buscar as especificações (sem internet ou IA indisponível). O relatório usa só o teste.'}}}
+ pr.style.width='100%';st.textContent='Pronto! ✅';b.disabled=false;relDisp(av);
+}
+function relDisp(av){
+ const m=M,s=S||{},f=(v,u='')=>v?esc(v)+u:'—',lv=m.lv,ok=(c,t)=>tag(c,t);
+ const rows=[['Memória RAM',f(s.ram,' GB'),m.ram?'≈ '+m.ram+' GB (o navegador limita a 8)':'não detectável',s.ram&&m.ram?(m.ram>=s.ram*.7?ok('ok','confere'):ok('wa','menor')):ok('in','info')],
+ ['Armazenamento (ROM)',f(s.rom,' GB'),'o navegador não informa',ok('in','info')],['Processador',f(s.proc),m.nuc?m.nuc+' núcleos':'não detectável',ok('in','info')],['GPU',f(s.gpu),esc(m.gpu),ok('in','info')],['Tela',f(s.tela),m.tela+' px',ok('in','info')],
+ ['Desempenho',s.nota?s.nota+'/100':'—',m.score+'/100 ('+NIV[lv]+')',s.nota?(m.score>=s.nota*.8?ok('ok','atende'):ok('er','abaixo do esperado')):ok('in','sem comparação')]];
+ const concl=['Desempenho limitado: bom para mensagens, navegação e vídeos leves.','Desempenho básico: atende redes sociais, vídeo, escritório e emuladores até 16 bits. Jogos 3D e Nintendo 64 podem ter lag.','Bom desempenho: roda a maioria dos apps e jogos, e emuladores até PS1/N64 com ajustes.','Ótimo desempenho: roda praticamente tudo, inclusive jogos 3D e apps pesados.'][lv]+(s.nota?(m.score>=s.nota*.8?' O teste é compatível com a especificação do fabricante.':' O teste ficou abaixo do esperado pelo fabricante: feche apps, desligue a economia de energia, deixe o aparelho esfriar e repita.'):'');
+ const dicas=m.so==='Android'||m.so==='iOS'?['Feche apps em segundo plano antes de jogos e emuladores','Deixe 10–15% do armazenamento livre e limpe o cache','Desative a economia de energia e evite calor (tire a capa em jogos)','Mantenha o sistema e o navegador (Chrome) atualizados','Android: em Opções do desenvolvedor, reduza as escalas de animação para 0,5×']:['Feche abas e programas que não usa','Desative apps que iniciam com o sistema','Use SSD e mantenha drivers atualizados','Se a RAM for pouca, aumentá-la é a melhoria mais eficaz'];
+ $('rd').hidden=false;$('rd').innerHTML=`<div class="card" id="rtd"><h2>📋 Relatório do aparelho${S?.n?' — '+esc(S.n):''}</h2>${av?`<p class="mu">⚠️ ${av}</p>`:''}${S?.ia?'<p class="mu">Especificações geradas por IA: confirme no site do fabricante.</p>':''}
+ <div class="g"><div class="k"><b>${m.score}</b><span>Pontuação (0–100)</span></div><div class="k"><b>${NIV[lv]}</b><span>Classificação</span></div><div class="k"><b>${m.fps}</b><span>FPS no teste gráfico</span></div><div class="k"><b>${esc(m.so)}</b><span>Sistema</span></div></div>
+ <h2 style="margin-top:16px">Fabricante × teste</h2>${tbl(['Item','Fabricante','Medido','Situação'],rows)}
+ <h2 style="margin-top:16px">✅ Conclusão</h2><p>${concl}</p><h2>💡 Dicas para melhorar</h2>${lst(dicas)}<h2>📲 Apps indicados para este nível</h2>${lst(APPREC[lv])}<p class="mu">A pontuação é relativa e aproximada (teste rápido no navegador).</p></div>
+ <button class="b s" onclick="cp('rtd')">📋 Copiar relatório</button>
+ <div class="card"><h2>🔍 Este aplicativo roda no meu aparelho?</h2><input id="app" placeholder="Ex.: Super Mario 64, Free Fire, AutoCAD..."><button class="b" onclick="chkApp()">Verificar</button> <button class="b s" onclick="iaApp()">🤖 Perguntar à IA</button><div id="ra" style="margin-top:12px"></div></div>`;
+ $('rd').scrollIntoView({behavior:'smooth'});
+}
+function chkApp(){const q=$('app').value.trim(),r=$('ra');if(!q)return;const a=APPS.find(x=>x[0].test(q));
+ if(!a){r.innerHTML='Não tenho esse app na minha lista. Toque em <b>Perguntar à IA</b> para uma estimativa.';return}
+ const d=M.lv-a[2],v=d>=1?['ok','🟢 Roda muito bem']:d===0?['wa','🟡 Roda, com ajustes (qualidade menor)']:d===-1?['wa','🟠 Pode travar; use o modo mais leve']:['er','🔴 Não recomendado neste aparelho'];
+ r.innerHTML=`<b>${esc(a[1])}</b>: ${tag(v[0],v[1])}<p class="mu">Seu nível: ${NIV[M.lv]} · nível indicado: ${NIV[Math.min(3,a[2])]}${a[2]>3?' ou superior (hardware avançado)':''}.</p>`}
+async function iaApp(){const q=$('app').value.trim(),r=$('ra');if(!q)return;r.textContent='🤖 Consultando a IA...';
+ try{r.innerHTML=md(await ia(`Aparelho: ${Q||'modelo não informado'}; ${M.so}; ${M.nuc} núcleos; RAM ${M.ram||'?'} GB; GPU ${M.gpu}; nota do teste ${M.score}/100 (${NIV[M.lv]}). O aplicativo/jogo "${q}" roda nele? Qual o desempenho esperado (fluidez/FPS), configurações recomendadas e alternativas mais leves? Responda em português, em até 8 linhas.`))}catch(e){r.textContent='⚠️ '+e.message}}
+/* ================= PÁGINA 2: INTERNET ================= */
+const CF='https://speed.cloudflare.com/';
+async function testarNet(){
+ const b=$('bn'),sn=$('sn'),pn=$('pn'),ct=parseFloat($('ct').value)||0,prov=$('prov').value.trim(),set=(t,p)=>{sn.textContent=t;pn.style.width=p+'%'};b.disabled=true;
+ try{set('Medindo latência...',5);const T=[];let fail=0;
+  for(let i=0;i<11;i++){const t=performance.now();try{await fetch(CF+'__down?bytes=0&r='+Math.random(),{cache:'no-store'});if(i)T.push(performance.now()-t)}catch(_){fail++}}
+  if(!T.length)throw new Error('Sem conexão com o servidor de teste. Verifique a internet.');
+  const ping=T.reduce((a,v)=>a+v)/T.length,jit=T.slice(1).reduce((a,v,i)=>a+Math.abs(v-T[i]),0)/Math.max(1,T.length-1),loss=fail/11*100;
+  set('Medindo download...',15);const ac=new AbortController(),t0=performance.now();let by=0,w0=0,wb=0;setTimeout(()=>ac.abort(),9000);
+  try{const r=await fetch(CF+'__down?bytes=100000000&r='+Math.random(),{signal:ac.signal,cache:'no-store'}),rd=r.body.getReader();
+   for(;;){const{done,value}=await rd.read();if(done)break;by+=value.length;const el=(performance.now()-t0)/1000;if(!w0&&el>1.5){w0=el;wb=by}pn.style.width=Math.min(55,15+el*4.4)+'%'}}catch(e){if(e.name!=='AbortError')throw e}
+  const el=(performance.now()-t0)/1000,dl=w0&&el>w0?(by-wb)*8/1e6/(el-w0):by*8/1e6/el;
+  set('Medindo upload...',60);const blob=new Blob([new Uint8Array(2e6)]),u0=performance.now();let ub=0;
+  while(performance.now()-u0<6000){await fetch(CF+'__up',{method:'POST',body:blob});ub+=2e6;pn.style.width=Math.min(98,60+(performance.now()-u0)/160)+'%'}
+  const ul=ub*8/1e6/((performance.now()-u0)/1000);set('Pronto! ✅',100);relNet({prov,ct,dl,ul,ping,jit,loss});
+ }catch(e){set('⚠️ '+e.message,0)}b.disabled=false}
+let N=null;
+function relNet(n){N=n;const pct=n.ct?n.dl/n.ct*100:null,c=navigator.connection,f=v=>v.toFixed(1);
+ const vp=pct==null?['in','sem comparação']:pct>=80?['ok','atende o plano']:pct>=40?['wa','abaixo do esperado']:['er','muito abaixo'];
+ const est=n.loss>2||n.jit>30||n.ping>100?['er','instável']:n.loss>0||n.jit>15||n.ping>50?['wa','razoável']:['ok','estável'];
+ const uso=(l,ok)=>[l,ok?tag('ok','ok'):tag('er','pode falhar')];
+ const rows=[['Provedor',n.prov?esc(n.prov):'—','—',tag('in','info')],['Download',n.ct?n.ct+' Mbps contratados':'—',f(n.dl)+' Mbps',tag(vp[0],vp[1]+(pct!=null?' ('+Math.round(pct)+'%)':''))],['Upload','—',f(n.ul)+' Mbps',tag('in','info')],['Latência (ping)','até 50 ms ideal',Math.round(n.ping)+' ms',tag(n.ping<=50?'ok':n.ping<=100?'wa':'er',n.ping<=50?'boa':n.ping<=100?'média':'alta')],['Oscilação (jitter)','até 15 ms ideal',Math.round(n.jit)+' ms',tag(n.jit<=15?'ok':n.jit<=30?'wa':'er',n.jit<=15?'boa':n.jit<=30?'média':'alta')],['Perda de pacotes','0%',f(n.loss)+'%',tag(n.loss===0?'ok':n.loss<=2?'wa':'er',n.loss===0?'nenhuma':'há perdas')]];
+ const concl=(pct==null?'Informe a velocidade contratada para comparar com o plano. ':pct>=80?`Sua conexão atende o plano (${Math.round(pct)}% do contratado; referência comum: pelo menos 80% na média). `:`Você recebeu ${Math.round(pct)}% do contratado, abaixo da referência comum de 80%. `)+`Estabilidade: ${est[1]}.`;
+ const dicas=[];if(pct!=null&&pct<80)dicas.push('Repita o teste por cabo de rede e perto do roteador: o Wi-Fi costuma ser o gargalo');dicas.push('Use a rede Wi-Fi de 5 GHz e deixe o roteador alto e longe de paredes/microondas','Reinicie o modem/roteador e feche downloads e streaming durante o teste');
+ if(n.jit>15||n.loss>0)dicas.push('Oscilação ou perdas: troque o canal do Wi-Fi, teste por cabo e desligue VPN');if(n.ping>50)dicas.push('Ping alto: teste em outro horário e tente DNS 1.1.1.1 ou 8.8.8.8');
+ if(pct!=null&&pct<80)dicas.push('Se persistir por cabo, registre o protocolo no provedor e, sem solução, reclame na Anatel (1331)');
+ $('rn').hidden=false;$('rn').innerHTML=`<div class="card" id="rtn"><h2>📋 Relatório da internet</h2><div class="g"><div class="k"><b>${f(n.dl)}</b><span>Download (Mbps)</span></div><div class="k"><b>${f(n.ul)}</b><span>Upload (Mbps)</span></div><div class="k"><b>${Math.round(n.ping)} ms</b><span>Ping</span></div><div class="k"><b>${est[1]}</b><span>Estabilidade</span></div></div>
+ <h2 style="margin-top:16px">Plano × teste</h2>${tbl(['Item','Esperado','Medido','Situação'],rows)}${c?`<p class="mu">Conexão do aparelho: ${esc(c.type||'')} ${esc(c.effectiveType||'')}</p>`:''}
+ <h2>O que sua conexão aguenta</h2>${tbl(['Uso','Situação'],[uso('Vídeo em HD (5 Mbps)',n.dl>=5),uso('Vídeo em 4K (25 Mbps)',n.dl>=25),uso('Videochamada (3 Mbps de envio)',n.ul>=3),uso('Jogos online (ping < 60 ms, jitter < 20 ms)',n.ping<60&&n.jit<20)])}
+ <h2 style="margin-top:16px">✅ Conclusão</h2><p>${concl}</p><h2>💡 Dicas para melhorar</h2>${lst(dicas)}<p class="mu">Medido com o servidor da Cloudflare; o resultado depende do aparelho, do Wi-Fi e do horário.</p></div>
+ <button class="b s" onclick="cp('rtn')">📋 Copiar relatório</button> <button class="b" onclick="iaNet()">🤖 Análise personalizada com IA</button><div class="card" id="ri" hidden></div>`;$('rn').scrollIntoView({behavior:'smooth'})}
+async function iaNet(){const r=$('ri'),n=N;r.hidden=false;r.textContent='🤖 Consultando a IA...';
+ try{r.innerHTML='<h2>🤖 Análise da IA</h2>'+md(await ia(`Teste de internet: provedor ${n.prov||'não informado'}, plano ${n.ct||'não informado'} Mbps, download ${n.dl.toFixed(1)} Mbps, upload ${n.ul.toFixed(1)} Mbps, ping ${Math.round(n.ping)} ms, jitter ${Math.round(n.jit)} ms, perda ${n.loss.toFixed(1)}%. Diga se atende o plano e dê dicas práticas de melhoria, em português, em até 8 linhas.`))}catch(e){r.textContent='⚠️ '+e.message}}
+const LEIA='ANALISADOR DE DISPOSITIVO E INTERNET - USO OFFLINE\r\n\r\nCELULAR/TABLET: extraia o zip no app Arquivos e abra analisador_sistema.html com o Chrome. O teste do aparelho funciona sem internet. Para instalar como app, abra o site no Chrome e use Menu > Instalar app.\r\n\r\nCOMPUTADOR: extraia o zip e de duplo clique em analisador_sistema.html. Para modo completo, abra o terminal na pasta, rode python -m http.server 8080 e acesse http://localhost:8080/analisador_sistema.html (instale pelo icone na barra de endereco).\r\n\r\nO teste de internet e a IA precisam de conexao. Outros apps na mesma pasta: veja os comentarios do sw.js.\r\n';
+function crc32(u){const t=crc32.t||(crc32.t=Array.from({length:256},(_,n)=>{let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;return c>>>0}));let r=-1;for(const b of u)r=t[(r^b)&255]^(r>>>8);return(r^-1)>>>0}
+function zip(fs){const en=new TextEncoder(),P=[],C=[];let off=0;
+ for(const f of fs){const nm=en.encode(f.n),crc=crc32(f.d),h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x800,true);h.setUint32(14,crc,true);h.setUint32(18,f.d.length,true);h.setUint32(22,f.d.length,true);h.setUint16(26,nm.length,true);P.push(h.buffer,nm,f.d);
+  const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x800,true);c.setUint32(16,crc,true);c.setUint32(20,f.d.length,true);c.setUint32(24,f.d.length,true);c.setUint16(28,nm.length,true);c.setUint32(42,off,true);C.push(c.buffer,nm);off+=30+nm.length+f.d.length}
+ let cs=0;for(const x of C)cs+=x.byteLength||x.length;const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,fs.length,true);e.setUint16(10,fs.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob([...P,...C,e.buffer],{type:'application/zip'})}
+function salvar(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();a.remove()}
+const pega=async n=>{const r=await fetch('./'+n,{cache:'no-store'});if(!r.ok)throw new Error(n+' ('+r.status+')');return r.blob()};
+async function baixarZip(){const s=$('sz');try{s.textContent='Montando o pacote...';const d=[];for(const n of['analisador_sistema.html','sw.js'])d.push({n:'AnalisadorSistema/'+n,d:new Uint8Array(await(await pega(n)).arrayBuffer())});
+ d.push({n:'AnalisadorSistema/LEIA-ME.txt',d:new TextEncoder().encode(LEIA)});salvar(zip(d),'AnalisadorSistema.zip');s.textContent='Pronto! Extraia o .zip e siga o tutorial abaixo.'}catch(e){s.textContent='Não foi possível baixar daqui: '+e.message}}
+async function baixarSep(){const s=$('sz');try{for(const n of['analisador_sistema.html','sw.js']){salvar(await pega(n),n);await sleep(800)}s.textContent='Baixado! Deixe os 2 arquivos na mesma pasta.'}catch(e){s.textContent='Não foi possível baixar daqui: '+e.message}}
+go(['net','dl'].includes(location.hash.slice(1))?location.hash.slice(1):'dev');
+if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
